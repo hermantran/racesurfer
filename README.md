@@ -29,7 +29,7 @@ Located at public/js/main.js (line 132-164)
 * W3C Geolocation API to get current coordinates for Active API and Google Maps  
 Located at public/js/main.js (line 28-32)
 * Client-side templating with Underscore for Active API JSON results  
-Located at applications/views/surf.php (line 36-73)
+Located at applications/views/surf.php (line 36-69)
 * Use of custom constructor function for Accordion in #resultsDetails div  
 Located at public/js/accordionConstructor.js
 * Extra REST web service: Flickr API at applications/libraries/flickr.php  

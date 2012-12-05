@@ -1,0 +1,150 @@
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+	font-family: arial;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+body * {
+	margin: 0;
+	padding: 0;
+}
+#container {
+	width: 100%;
+	min-width: 930px;
+	height: 100%;
+	position: relative;
+}
+#container a {
+	color: blue;
+	text-decoration: none;
+}
+#container a:hover {
+	text-decoration: underline;
+}
+div.close {
+	width: 2%;
+	height: 100%;
+	float: left;
+}
+div.close:hover {
+	background: #eeeeee;
+}
+div.clear {
+	clear: both;
+}
+
+/* All styles used in the left sidebars */
+#sidebar {
+	width: 25%;
+	min-width: 230px;
+	height: 100%;
+	float: left;
+	border-right: 1px solid #dddddd;
+}
+#searchSidebar {
+	width: 100%;
+	height: 10%;
+	min-height: 60px;
+	border-bottom: 1px solid #dddddd;
+}
+#searchSidebar span.logo {
+	font-style: italic;
+	color: #6FD108;
+}
+#searchSidebar h2 {
+	font-family: 'Asap', sans-serif;
+	font-size: 30px;
+	margin: 0 0 0 25px;
+}
+#searchTerm {
+	margin: 0 0 0 25px;
+	width: 115px;
+	height: 20px;
+}
+#geolocate {
+	margin: 0 0 0 5px;
+}
+#resultsSidebar {
+	width: 100%;
+	min-width: 200px;
+	height: 89%;
+	overflow: auto;
+}
+#resultsSidebar a.locate {
+	margin: 0 10px 0 0;
+}
+#resultsSidebar span.title {
+	font-weight: bold;
+}
+#resultsSidebar ul.overview {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+#resultsSidebar ul.overview li {
+	margin: 0 0 10px 0;
+	padding: 0 0 0 25px;
+}
+#resultsSidebar ul.overview li:hover {
+	background: #eeeeee;
+}
+
+/* All styles used in the pop-up More Info details */
+#resultsDetails {
+	width: 1px;
+	height: 100%;
+	float: left;
+	display: none;
+	overflow: hidden;
+}
+#resultsDetails div.accordion {
+	margin: 10px 0 0 10px;
+	width: 95%;
+}
+#resultsDetails div.paneLabel {
+	cursor: pointer;
+}
+#resultsDetails div.paneContent {
+	padding: 5px;
+	border: 2px solid #dddddd;
+	border-top: 0;
+}
+#resultsDetails div.paneContent p {
+	margin-bottom: 10px;
+}
+
+/* All styles used in the Google Maps and Flickr area */
+#resultsMap {
+	width: 74%;
+	min-width: 1px;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+}
+#mapCanvas {
+	width: 100%; 
+	min-width: 1px;
+	height: 100%; 
+}
+#flickrPhotos {
+	width: 100%;
+	height: 1px;
+	text-align: center;
+	overflow: auto;
+}
+#flickrPhotos img {
+	margin: 5px;
+}
+
+/* All classes used in main.js */
+.active {
+	background: #dddddd;
+	color: black;
+}
+.loading {
+	background: url(../img/ajax-loader.gif) no-repeat center top;
+}
