@@ -1,0 +1,6 @@
+.active {
+	border-top: 2px solid $main-color;
+}
+.is-loading {
+	background: url('../img/ajax-loader.gif') no-repeat center top;
+}

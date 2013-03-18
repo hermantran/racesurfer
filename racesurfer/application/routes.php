@@ -35,7 +35,7 @@
 Route::controller('racesurfer');
 
 Route::get('/', function() {
-	return View::make('home.index');
+	return View::make('home.surf');
 });
 
 Route::get('about', function() {

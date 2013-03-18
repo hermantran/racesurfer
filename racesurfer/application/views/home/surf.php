@@ -4,22 +4,21 @@
 	<meta charset="UTF-8">
 	<title>RaceSurfer</title>
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Asap:400,400italic">
-	<link rel="stylesheet" href="<?php echo URL::to_asset('css/styles.css') ?>">
+	<link rel="stylesheet" href="<?php echo URL::to_asset('css/main.css') ?>">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 </head>
 
 <body>
 <div id="container">
-
-	<div id="sidebar">
-		<div id="searchSidebar">
-			<h2>Race<span class="logo">Surfer</span></h2>
-			<input type="text" id="searchTerm" placeholder="Enter a race event">
-			<input type="button" id="geolocate" value="Geolocate">
+	<div id="header">
+		<span class="logo">RaceSurfer</span>
+		<div class="form">
+			<input type="text" id="searchTerm" placeholder="Enter a race event"/>
+			<input type="button" id="geolocate" value="Geolocate"/>
 		</div>
-		<div class="clear"></div>
-		<div id="resultsSidebar"></div>
 	</div>
+
+	<div id="resultsSidebar"></div>
 
 	<div id="resultsDetails"></div>
 
@@ -30,11 +29,10 @@
 	</div>
 
 	<div class="clear"></div>
-	
 </div>
 
-<script type="text/template" class="template1">
-	<ul class="overview">
+<script type="text/template" id="resultsList-template">
+	<ul class="resultsList">
 	<% _.each( rc._results, function(result) { %>
 			<li> 
 				<span class="title"> <%- result.title %> </span> <br>
@@ -46,7 +44,7 @@
 	</ul>
 </script>
 
-<script type="text/template" class="template2">
+<script type="text/template" id="resultsDetails-template">
 	<div id="resultsAccordion" class="accordion">
 	<% _.each( rc._results, function(result) { %>
 			<div class="paneLabel">
@@ -57,7 +55,7 @@
 					<%- result.meta.endDate.substring(0,10) %> <br>
 					<%- result.meta.eventAddress %> <br>
 					<%- result.meta.city %>, <%- result.meta.eventState %> <br>
-					<a href=' <%- result.url %> '>Register</a>..
+					<a href=' <%- result.url %> '>Register</a>
 					<a href='<%- result.meta.eventUrl %>'>Event Page</a>
 				</p>
 				<p> <u>Overview</u>: <%- result.meta.allText %> </p>

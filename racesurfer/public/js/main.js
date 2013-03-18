@@ -1,4 +1,4 @@
-(function() {
+(function($) {
 	// Paths to controllers and images; unable to use Laravel paths
 	var activeController = 'racesurfer/active';
 	var flickrController = 'racesurfer/flickr';
@@ -6,14 +6,8 @@
 
 	// Initialize Underscore.js templating settings
 	_.templateSettings.variable = "rc";
-
-	var template1 = _.template(
-		$("script.template1").html()
-	);
-	
-	var template2 = _.template(
-		$("script.template2").html()
-	);
+	var template1 = _.template( $("#resultsList-template").html() );
+	var template2 = _.template( $("#resultsDetails-template").html() );
 
 	// If geolocation, bind click of Geolocate button with AJAX request to Active API, and with load of Google Maps 
 	if (navigator.geolocation) {
@@ -31,7 +25,7 @@
 					lng: position.coords.longitude
 				};
 				
-				$resultsSidebar.html('').addClass('loading');
+				$resultsSidebar.html('').addClass('is-loading');
 				$resultsDetails.html('');
 			
 				$.ajax({
@@ -44,12 +38,12 @@
 					}
 				}).done(function(jsonString) {
 					results = JSON.parse(jsonString);
-					$resultsSidebar.removeClass('loading').html(template1(results));
+					$resultsSidebar.removeClass('is-loading').html(template1(results));
 					$resultsDetails.html(template2(results));
 					
 					var details = new Accordion({
 						id: '#resultsAccordion',
-						speed: 300
+						speed: 500
 					});
 
 					var current = new google.maps.LatLng(located.lat, located.lng);
@@ -129,10 +123,10 @@
 		var $mapCanvas = $('#mapCanvas');
 		var $flickrPhotos = $('#flickrPhotos');
 
-		if ($parent.hasClass('active')) {
-			$parent.removeClass('active');
+		if ($parent.hasClass('is-active')) {
+			$parent.removeClass('is-active');
 
-			$resultsMap.animate({width: '74%',});
+			$resultsMap.animate({width: '77%'});
 			$resultsDetails.css({
 				overflow: 'hidden',
 				width: '1px',
@@ -143,8 +137,8 @@
 			$mapCanvas.animate({height: '100%'});
 			$flickrPhotos.html('').animate({height: '1px'});
 		} else {
-			$resultsSidebar.find('li').removeClass('active');
-			$parent.addClass('active');
+			$resultsSidebar.find('li').removeClass('is-active');
+			$parent.addClass('is-active');
 			
 			var index = $resultsSidebar.find('a.moreInfo').index(this);
 			$resultsDetails.find('div.paneLabel').eq(index).click();
@@ -156,14 +150,14 @@
 					display: 'block',
 					overflowY: 'auto',
 					borderRight: '1px solid #dddddd'
-				}).animate({width: '44%'});
+				}).animate({width: '46%'});
 				
 				// #mapCanvas and #flickrPhotos must take up 100% of #resultsMap
 				$mapCanvas.animate({height: '30%'});
 				$flickrPhotos.animate({height: '70%'});
 			}
 			
-			$flickrPhotos.html('').addClass('loading');
+			$flickrPhotos.html('').addClass('is-loading');
 		
 			$.ajax({
 				url: flickrController,
@@ -172,7 +166,7 @@
 					searchTerm: searchTerm
 				}
 			}).done(function(results) {
-				$('#flickrPhotos').removeClass('loading').html(results);
+				$('#flickrPhotos').removeClass('is-loading').html(results);
 			});
 		}
 	});
