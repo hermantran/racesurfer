@@ -16,9 +16,6 @@ a {
   a:hover {
     text-decoration: underline; }
 
-img {
-  margin: 5px; }
-
 input[type="text"] {
   height: 23px;
   margin: 0; }
@@ -53,7 +50,6 @@ input[type="button"] {
 
 #resultsSidebar {
   width: 23%;
-  min-width: 200px;
   height: 100%;
   float: left;
   overflow: auto; }
@@ -81,36 +77,50 @@ input[type="button"] {
   height: 1px;
   text-align: center;
   overflow: auto; }
+  #flickrPhotos img {
+    margin: 5px; }
+
+.logo {
+  font-family: 'Asap', arial;
+  font-size: 30px;
+  margin-left: 10px;
+  color: #6fd108; }
 
 .form {
   float: right;
   margin: 5px 100px 0 0; }
 
-.resultsList {
-  list-style: none; }
-  .resultsList li {
-    padding: 5px 0 5px 15px;
-    border-bottom: 1px solid #dddddd; }
-    .resultsList li:hover {
-      background: #eee; }
-  .resultsList .locate {
-    margin: 0 10px 0 0; }
-  .resultsList .title {
-    font-weight: bold; }
-
-.accordion .paneLabel {
-  cursor: pointer; }
-.accordion .paneContent {
-  padding: 5px;
-  border-bottom: 1px solid #dddddd;
-  border-top: 0; }
-  .accordion .paneContent p {
-    margin: 0 0 10px 0; }
-
-.logo {
-  font-family: 'Asap', arial;
-  font-size: 30px;
-  color: #6fd108; }
+.resultsList .wrapper {
+  position: relative; }
+.resultsList .listing {
+  width: 100%;
+  padding: 5px 10px;
+  border-bottom: 1px solid #dddddd; }
+  .resultsList .listing:hover {
+    background: #eee; }
+  .resultsList .listing:hover .expand {
+    visibility: visible; }
+  .resultsList .listing:hover .detailsContent {
+    display: block; }
+.resultsList .expand {
+  float: right;
+  visibility: hidden;
+  margin: 0 15px 0 0; }
+  .resultsList .expand .locate, .resultsList .expand .details {
+    width: 20px;
+    height: 20px;
+    background: url("../img/locate.png") no-repeat center center;
+    background-color: white; }
+.resultsList .detailsContent {
+  position: absolute;
+  top: 0;
+  left: 400px;
+  display: none;
+  z-index: 2;
+  background-color: white;
+  border-top: 2px solid #6fd108; }
+.resultsList .title {
+  font-weight: bold; }
 
 .active {
   border-top: 2px solid #6fd108; }

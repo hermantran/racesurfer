@@ -11,8 +11,7 @@
 
 	// If geolocation, bind click of Geolocate button with AJAX request to Active API, and with load of Google Maps 
 	if (navigator.geolocation) {
-		$('#geolocate').on('click', function(e) {
-			e.preventDefault();
+		$('#geolocate').on('click', function() {
 			var located = {};
 			var searchTerm = $('#searchTerm').val();
 			var $resultsSidebar = $('#resultsSidebar');
@@ -40,11 +39,6 @@
 					results = JSON.parse(jsonString);
 					$resultsSidebar.removeClass('is-loading').html(template1(results));
 					$resultsDetails.html(template2(results));
-					
-					var details = new Accordion({
-						id: '#resultsAccordion',
-						speed: 500
-					});
 
 					var current = new google.maps.LatLng(located.lat, located.lng);
 		
@@ -81,7 +75,7 @@
 							infowindow.open(map, marker);
 						});
 						
-						$resultsSidebar.find('a.locate').eq(i).on('click', function() {
+						$resultsSidebar.find('.locate').eq(i).on('click', function() {
 							infowindow.open(map, marker);
 						});
 					});
@@ -111,63 +105,19 @@
 	}
 	
 	// Bind click of each More Info link with AJAX request to Flickr API
-	$('#resultsSidebar').on('click','a',function(e) {
-		e.preventDefault();
-	}).on('click','a.moreInfo',function() {
-		var $this = $(this);
-		var $parent = $this.parent();
-		var searchTerm = $parent.find('span.title').text();
-		var $resultsSidebar = $('#resultsSidebar');
-		var $resultsDetails = $('#resultsDetails');
-		var $resultsMap = $('#resultsMap');
-		var $mapCanvas = $('#mapCanvas');
+	$('#resultsSidebar').on('click','.details',function(e) {
 		var $flickrPhotos = $('#flickrPhotos');
 
-		if ($parent.hasClass('is-active')) {
-			$parent.removeClass('is-active');
-
-			$resultsMap.animate({width: '77%'});
-			$resultsDetails.css({
-				overflow: 'hidden',
-				width: '1px',
-				border: '0',
-				display: 'none'
-			});
-			
-			$mapCanvas.animate({height: '100%'});
-			$flickrPhotos.html('').animate({height: '1px'});
-		} else {
-			$resultsSidebar.find('li').removeClass('is-active');
-			$parent.addClass('is-active');
-			
-			var index = $resultsSidebar.find('a.moreInfo').index(this);
-			$resultsDetails.find('div.paneLabel').eq(index).click();
-			
-			if ($resultsDetails.css('display') === 'none') {
-				$resultsMap.animate({width: '30%',});
-				
-				$resultsDetails.css({
-					display: 'block',
-					overflowY: 'auto',
-					borderRight: '1px solid #dddddd'
-				}).animate({width: '46%'});
-				
-				// #mapCanvas and #flickrPhotos must take up 100% of #resultsMap
-				$mapCanvas.animate({height: '30%'});
-				$flickrPhotos.animate({height: '70%'});
+		$flickrPhotos.html('').addClass('is-loading');
+	
+		$.ajax({
+			url: flickrController,
+			type: 'GET',
+			data: {
+				searchTerm: searchTerm
 			}
-			
-			$flickrPhotos.html('').addClass('is-loading');
-		
-			$.ajax({
-				url: flickrController,
-				type: 'GET',
-				data: {
-					searchTerm: searchTerm
-				}
-			}).done(function(results) {
-				$('#flickrPhotos').removeClass('is-loading').html(results);
-			});
-		}
+		}).done(function(results) {
+			$('#flickrPhotos').removeClass('is-loading').html(results);
+		});
 	});
 })(jQuery);
