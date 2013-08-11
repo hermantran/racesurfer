@@ -32,7 +32,7 @@
 |
 */
 
-Route::controller('racesurfer');
+Route::controller('home');
 
 Route::get('/', function() {
 	return View::make('home.surf');

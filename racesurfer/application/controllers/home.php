@@ -1,38 +1,56 @@
 <?php
 
 class Home_Controller extends Base_Controller {
-
-	/*
-	|--------------------------------------------------------------------------
-	| The Default Controller
-	|--------------------------------------------------------------------------
-	|
-	| Instead of using RESTful routes and anonymous functions, you might wish
-	| to use controllers to organize your application API. You'll love them.
-	|
-	| This controller responds to URIs beginning with "home", and it also
-	| serves as the default controller for the application, meaning it
-	| handles requests to the root of the application.
-	|
-	| You can respond to GET requests to "/home/profile" like so:
-	|
-	|		public function action_profile()
-	|		{
-	|			return "This is your profile!";
-	|		}
-	|
-	| Any extra segments are passed to the method as parameters:
-	|
-	|		public function action_profile($id)
-	|		{
-	|			return "This is the profile for user {$id}.";
-	|		}
-	|
-	*/
-
-	public function action_index()
-	{
-		return View::make('home.index');
+	public function action_index() {
+		return View::make('home.surf');
 	}
+	
+	public function action_active() {
+		if (Request::ajax()) {
+			$searchTerm = Input::get('searchTerm');
+			$lat = Input::get('lat');
+			$lng = Input::get('lng');
+			
+			if (empty($active)) { 
+				$active = new Active('vxxz4hnnj8fdknbxk6pfm7tn');
+			}
+			
+			$active_search = $active->searchRacesByCoordinates($searchTerm, $lat, $lng);
+			
+			return $active_search;
+		} else {
+			return Redirect::to('/racesurfer');
+		}
+	}
+	
+	public function action_flickr() {
+		if (Request::ajax()) {
+			$searchTerm = Input::get('searchTerm');
+	
+			if (empty($flickr)) { 
+				$flickr = new Flickr('5b428cb617e0059d9bdf1e086f9c5a21');
+			}
+			
+			$flickr_search = $flickr->searchPhotosByTerm($searchTerm);
+			$results = '';
+			
+			if (empty($flickr_search->photos->photo[0]['id'])) {
+				$results = 'No results found';
+			} else {
+				foreach($flickr_search->photos->photo as $photo) {
+					$id = $photo['id'];
+					$farm = $photo['farm'];
+					$secret = $photo['secret'];
+					$server_id = $photo['server'];
 
+					$img_src = "http://farm".$farm.".staticflickr.com/".$server_id."/".$id."_".$secret."_m.jpg";
+					$results .= '<img src="'.$img_src.'" />';
+				}
+			}
+			
+			return $results;
+		} else {
+			return Redirect::to('/racesurfer');
+		}
+	}
 }
