@@ -1,0 +1,30 @@
+/* Theme CSS */
+.nav-pills.nav-styled {
+  border-radius: 0;
+  border-left: 4px solid $main-color;
+  border-right: 1px solid $alt-color;
+
+  > li {
+    border-bottom: 1px solid $alt-color;
+    border-radius: 0;
+    
+    > a {
+      > .btn {
+        margin: -4px 2px 0 0;
+      }
+      
+      > i {
+        opacity: 0.5; 
+      }
+      
+      &:hover {
+        background: none;
+        text-decoration: underline;
+      }
+      
+      &:hover i {
+        opacity: 0.75;  
+      }
+    }
+  }
+}

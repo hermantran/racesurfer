@@ -1,0 +1,71 @@
+/* Module CSS */
+$height: 40px;
+$input-margin: 5px;
+.search-bar {
+  height: $height;
+  border-top: 2px solid $main-color;
+  border-bottom: 1px solid $border-color;
+  
+  .row-fluid { 
+    height: inherit;
+    
+    > .credits {
+      height: inherit;
+      line-height: $height;
+      padding-right: 20px;
+    }
+    
+    > .title {
+      height: inherit;
+      padding-left: 20px;
+      
+      > h4 {
+        height: $height;
+        line-height: 1em;
+      
+        > a {
+           color: $main-color;  
+        }
+      }
+    }
+      
+    > .input-append {
+      margin-bottom: 0;
+      
+      > input[type="text"] {
+        height: $height - 4*$input-margin;
+      }
+      
+      > input[type="text"], span.add-on {
+        margin: $input-margin 0;
+        border-radius: 0;       
+      }
+      
+      > span.add-on {
+        border-left: 0;
+        cursor: pointer;   
+      }
+    }
+  }
+}
+
+.clear {
+  clear: both;  
+}
+
+.content {
+  .map-container {
+    border-left: 1px solid $border-color;
+    
+    > .map {
+      height: 1020px;
+      
+      img {
+        /* Fix for issue with incorrect rendering of zoom bar when using Bootstrap with Google Maps
+         * http://stackoverflow.com/questions/11898973/google-maps-zoom-look-weird
+         */
+        max-width: none;  
+      }
+    }
+  }
+}
