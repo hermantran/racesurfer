@@ -13,6 +13,7 @@ define([
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
           options.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          console.log(position.coords);
           new google.maps.Map(document.getElementById("gmap"), options);
         });
       }

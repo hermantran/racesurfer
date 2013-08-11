@@ -33,6 +33,7 @@
 */
 
 Route::controller('home');
+Route::controller('api');
 
 Route::get('/', function() {
 	return View::make('home.surf');

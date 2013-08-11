@@ -47,12 +47,12 @@
     <script>
       var App = {
         paths: {
-          active: "{{ URL::to_action("home@active") }}",
-          flickr: "{{ URL::to_action("home@flickr") }}"
+          active: "{{ URL::to_action("api@active") }}",
+          flickr: "{{ URL::to_action("api@flickr") }}"
         }
       };
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js" data-main="js/main"></script>
+    <script src="{{ URL::to_asset("bower_components/requirejs/require.js") }}" data-main="{{ URL::to_asset("js/main") }}"></script>
   </body>
 </html>
