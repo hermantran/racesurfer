@@ -2,7 +2,6 @@
 .nav-pills.nav-styled {
   border-radius: 0;
   border-left: 4px solid $main-color;
-  border-right: 1px solid $alt-color;
 
   > li {
     border-bottom: 1px solid $alt-color;
@@ -14,7 +13,8 @@
       }
       
       > i {
-        opacity: 0.5; 
+        opacity: 0.5;
+        display: inline-block;
       }
       
       &:hover {
@@ -25,6 +25,11 @@
       &:hover i {
         opacity: 0.75;  
       }
+    }
+    
+    > div.details {
+      font-weight: normal;
+      padding: 0 5px;
     }
   }
 }

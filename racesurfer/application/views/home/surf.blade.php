@@ -29,13 +29,7 @@
     
     <section class="content clear">
       <div class="row-fluid">
-        <div class="span3 sidebar">
-          
-          <ul class="nav nav-stacked nav-pills nav-styled">
-            <li><a href="#"><i class="icon-chevron-right pull-right" title="Learn more"></i><button class="btn btn-mini pull-right" title="Geolocate"><i class="icon-map-marker"></i></button>Some content</a></li>
-            <li><a href="#"><i class="icon-chevron-right pull-right"></i>Another race</a></li>
-          </ul>
-        </div>
+        <div class="span3 sidebar"></div>
         
         <div class="span9 map-container">
           <div class="map" id="gmap"></div>
@@ -44,14 +38,7 @@
       </div>
     </section>
     
-    <script>
-      var App = {
-        paths: {
-          active: "{{ URL::to_action("api@active") }}",
-          flickr: "{{ URL::to_action("api@flickr") }}"
-        }
-      };
-    </script>
+    <script>var paths = { active: "{{ URL::to_action("api@active") }}", flickr: "{{ URL::to_action("api@flickr") }}" };</script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="{{ URL::to_asset("bower_components/requirejs/require.js") }}" data-main="{{ URL::to_asset("js/main") }}"></script>
   </body>

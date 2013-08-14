@@ -6,9 +6,10 @@ define([
   
   Templates.item = [
     '<a href="#">',
-      '<%= name %>',
       '<i class="icon-chevron-right pull-right"></i>',
-    '</a>'
+      '<%= title %>',
+    '</a>',
+    '<div class="details hide"> <%= meta.allText %> </div>'
   ];
   
   for (var tmpl in Templates) {
