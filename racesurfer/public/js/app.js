@@ -6,7 +6,7 @@ define([
   "collections/photos",
   "views/list",
   "views/itemSummary"
-], function($, AppState, Templates, PhotoCollection, ItemsCollection, ListView, ItemSummaryView) {
+], function($, AppState, Templates, ItemsCollection, PhotoCollection, ListView, ItemSummaryView) {
   "use strict";
   var App = {
     initialize: function() {
