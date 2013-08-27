@@ -1,47 +1,61 @@
 define([
   "jquery",
-  "templates",
+  "state",
   "collections/items",
-  "views/list"
-], function($, Templates, ItemsCollection, ListView) {
+  "views/list",
+], function($, AppState, ItemsCollection, ListView) {
   "use strict";
   var App = {
     initialize: function() {
-      /* Caching DOM elements */
+      // Caching DOM elements
       var el = {
-        $sidebar: $('.sidebar')  
+        $sidebar: $(".sidebar"),
+        $input: $(".input-append > input[type='text']"),
+        $search: $(".input-append > span.search"),
+        $map: $(".map-container")
       };
+         
+      var activeItemsCollection = new ItemsCollection({ url: paths.active }),
+          listView = new ListView({ collection: activeItemsCollection }),
+          mapView;
       
-      var options = {
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        zoom: 11
-      };
+      el.$sidebar[0].appendChild(listView.el);
       
       if ("geolocation" in navigator) {
+        // Set the geolocation based coordinates
         navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = {
+          AppState.set("pos", {
             lat: position.coords.latitude,
             lng: position.coords.longitude
-          };
+          });
+        });
+
+        
+        el.$search.on("click", function() {
+          // Determine if Google Maps has already been async loaded into the page
+          if (!AppState.get("gmap")) {
+            require(["views/gmap"], function(GmapView) {
+              mapView = new GmapView();
+              el.$map[0].appendChild(mapView.render().el);
+              AppState.set("gmap", true);
+            });    
+          }
           
-          var activeItemsCollection = new ItemsCollection({ url: paths.active }),
-              listView = new ListView({ collection: activeItemsCollection });
           activeItemsCollection.fetch({
             data: { 
-              term: "10K",
-              lat: pos.lat,
-              lng: pos.lng
-            },
-            success: function() {
-              el.$sidebar[0].appendChild(listView.el);
-              console.log(activeItemsCollection);
+              term: el.$input.val(),
+              lat: AppState.get("pos").lat,
+              lng: AppState.get("pos").lng
             }
           });
-          
-          options.center = new google.maps.LatLng(pos.lat, pos.lng);
-          // new google.maps.Map(document.getElementById("gmap"), options);
-         
         });
+        
+      } else {
+        el.$input
+          .val("Geolocation is not supported in your browser.")
+          .addClass("input-xxlarge")
+          .prop("disabled", "disabled")
+          .next().hide();  
       }
     }
   };
