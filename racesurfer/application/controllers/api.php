@@ -23,6 +23,7 @@ class API_Controller extends Base_Controller {
 	
   public function get_flickr() {
     $searchTerm = Input::get('query');
+    $results = '';
 
     if (empty($flickr)) { 
       $flickr = new Flickr('5b428cb617e0059d9bdf1e086f9c5a21');

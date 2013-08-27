@@ -13,6 +13,14 @@ define([
     '<div class="details hide"> <%= meta.allText %> </div>'
   ];
   
+  Templates.itemSummary = [
+    'Your search returned <%= count %> results.'  
+  ];
+  
+  Templates.loader = [
+    '<img class="loader" src="img/ajax-loader.gif"> Loading...'
+  ];
+  
   Templates.infowindow = [
     '<h5 class="no-padding no-margin"> <%= title %> </h5>', 
     '<%= meta.eventAddress %> <br>', 

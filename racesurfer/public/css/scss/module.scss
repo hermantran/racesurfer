@@ -1,7 +1,7 @@
 /* Module CSS */
 $input-margin: 5px;
 .search-bar {
-  position: absolute;
+  position: relative;
   background: white;
   width: 100%;
   z-index: 2;
@@ -52,19 +52,30 @@ $input-margin: 5px;
   }
 }
 
+
 .clear {
   clear: both;  
 }
 
 .content {
+  position: relative;
+  height: 100%;
+  
   .row-fluid {
-    padding-top: $bar-height;
+    height: inherit;
+    
+    .sidebar {
+      position: relative;
+      z-index: 4;
+      border-right: 1px solid $border-color;
+      height: 100%;
+    }
     
     .map-container {
-      border-left: 1px solid $border-color;
+      height: 1020px;
       
       > .map {
-        height: 1020px;
+        height: inherit;
         
         img {
           /* Fix for issue with incorrect rendering of Google Maps zoom bar when using with Bootstrap
@@ -75,4 +86,14 @@ $input-margin: 5px;
       }
     }
   }
+}
+
+.summary {
+  border-bottom: 1px solid #ebebeb;
+  padding: 5px 0;  
+}
+
+.loader {
+  display: inline-block;
+  margin-top: -3px;  
 }

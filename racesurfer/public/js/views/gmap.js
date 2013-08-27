@@ -53,8 +53,27 @@ define([
     },
     
     render: function() {
+      var self = this;
+      
       this.options.center = new google.maps.LatLng(AppState.get("pos").lat, AppState.get("pos").lng);
       this.map = new google.maps.Map(this.el, this.options);
+      
+      var currentMarker = new google.maps.Marker({
+        position: this.options.center,
+        icon: "img/circle.png",
+        map: this.map,
+        title: "Current Location"
+      });
+      
+      var currentInfo = new google.maps.InfoWindow({
+        content: "Current Location",
+        maxWidth: 200
+      });
+      
+      google.maps.event.addListener(currentMarker, "click", function() {
+        currentInfo.open(self.map, currentMarker);
+      });
+      
       return this;
     }
   });

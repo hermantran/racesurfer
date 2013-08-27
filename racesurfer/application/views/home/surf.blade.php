@@ -11,7 +11,7 @@
   
   <body>
     <section class="search-bar">
-      <div class="row-fluid">
+      <div class="row-fluid shadow-bottom">
         <div class="span3 title">
           <h4><a href="#">RaceSurfer</a></h4> 
         </div>
@@ -29,13 +29,13 @@
     
     <section class="content clear">
       <div class="row-fluid">
-        <div class="span3 sidebar"></div>
+        <div class="span3 sidebar shadow-right"></div>
         <div class="span9 map-container"></div>
         
       </div>
     </section>
     
     <script>var paths = { active: "{{ URL::to_action("api@active") }}", flickr: "{{ URL::to_action("api@flickr") }}" };</script>
-    <script src="{{ URL::to_asset("bower_components/requirejs/require.js") }}" data-main="{{ URL::to_asset("js/main") }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js" data-main="{{ URL::to_asset("js/main") }}"></script>
   </body>
 </html>

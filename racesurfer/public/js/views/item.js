@@ -14,7 +14,7 @@ define([
     
     render: function() {
       var content = this.template(this.model.toJSON());
-      this.$el.html(content);
+      this.$el.html(content).attr("data-cid", this.model.cid);
       return this;
     }
   });
