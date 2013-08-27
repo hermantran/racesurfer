@@ -10,6 +10,7 @@ define([
     initialize: function() {
       this.listenTo(this.collection, "add", this.addOne);
       this.listenTo(this.collection, "set", this.render);
+      this.listenTo(this.collection, "remove", this.remove);
       
       this.$el.on("click", 'i', function() {
         $(this)
@@ -31,6 +32,10 @@ define([
     addOne: function(model) {
       var itemView = new ItemView({ model: model });
       this.el.appendChild(itemView.el);
+    },
+    
+    remove: function(model) {
+      model.trigger("destroy");  
     }
   });
   

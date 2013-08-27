@@ -8,7 +8,7 @@ class API_Controller extends Base_Controller {
   public $restful = true;
   
   public function get_active() {
-      $searchTerm = Input::get('searchTerm');
+      $searchTerm = Input::get('term');
       $lat = Input::get('lat');
       $lng = Input::get('lng');
       

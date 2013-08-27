@@ -8,6 +8,7 @@ define([
     template: Templates.item,
     
     initialize: function() {
+      this.listenTo(this.model, "destroy", this.remove);
       this.render();
     },
     

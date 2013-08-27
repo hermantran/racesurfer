@@ -15,7 +15,7 @@ define([
         $map: $(".map-container")
       };
          
-      var activeItemsCollection = new ItemsCollection({ url: paths.active }),
+      var activeItemsCollection = window.c = new ItemsCollection({ url: paths.active }),
           listView = new ListView({ collection: activeItemsCollection }),
           mapView;
       
@@ -30,12 +30,15 @@ define([
           });
         });
 
+        el.$input.on("keyup", function(e) {
+          if (e.keyCode === 13) el.$search.click();
+        });
         
         el.$search.on("click", function() {
           // Determine if Google Maps has already been async loaded into the page
           if (!AppState.get("gmap")) {
             require(["views/gmap"], function(GmapView) {
-              mapView = new GmapView();
+              mapView = new GmapView({ collection: activeItemsCollection });
               el.$map[0].appendChild(mapView.render().el);
               AppState.set("gmap", true);
             });    
