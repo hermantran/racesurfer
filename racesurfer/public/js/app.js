@@ -18,7 +18,7 @@ define([
         $map: $(".map-container")
       };
          
-      var activeItemsCollection = window.c = new ItemsCollection({ url: paths.active }),
+      var activeItemsCollection = new ItemsCollection({ url: paths.active }),
           photoCollection = new PhotoCollection({ url: paths.flickr }),
           listView = new ListView({ collection: activeItemsCollection }),
           itemSummaryView = new ItemSummaryView({ collection: activeItemsCollection }),
@@ -52,15 +52,9 @@ define([
           }
         });
         
-        // Event handler done here so that we reference the instance of gmap created here
+        // Event handler done here so that we reference the instance of GmapView created here
         listView.$el.on("click", "a", function() {
           var cid = $(this).closest("li").attr("data-cid");
-          
-          for (var id in mapView.infowindows) {
-            if (mapView.infowindows.hasOwnProperty(id)) {
-              mapView.infowindows[id].close();    
-            }
-          }
           
           mapView.infowindows[cid].open(mapView.map, mapView.markers[cid]);
           mapView.map.setCenter(mapView.markers[cid].getPosition());

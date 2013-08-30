@@ -31,7 +31,6 @@
       <div class="row-fluid">
         <div class="span3 sidebar shadow-right"></div>
         <div class="span9 map-container"></div>
-        
       </div>
     </section>
     
