@@ -10,7 +10,7 @@ define([
       '<%= title %> <br>',  
     '</a>',
     '<div class="info"> <%= meta.city %>, <%= meta.eventState %> - <%= startDate %> <%= startTime %> </div>',
-    '<div class="details hide"> <%= meta.allText %> </div>'
+    '<div class="details hide"> <a href="<%= url %>">Register</a> <br> <%= meta.allText %> </div>'
   ];
   
   Templates.itemSummary = [

@@ -22,7 +22,9 @@
         </div>
       
         <div class="span3 credits text-right">
-          Powered By Active
+          <a href="http://developer.active.com/">
+            <img src="{{ URL::to_asset("img/power-by--drk.png") }}" alt="Powered by Active">
+          </a>
         </div>
       </div>
     </section>
