@@ -27,20 +27,16 @@ define([
       el.$sidebar
         .append(itemSummaryView.el)
         .append(listView.el);
-      
-      /*photoCollection.fetch({ 
-        data: {
-          query: "10K"  
-        }
-      });*/
-      
+
       if ("geolocation" in navigator) {
         // Set the geolocation based coordinates
         navigator.geolocation.getCurrentPosition(function(position) {
           AppState.set("pos", {
             lat: position.coords.latitude,
             lng: position.coords.longitude
-          });
+          }); 
+          
+          itemSummaryView.el.innerHTML = "Google Maps initialzing...";
           
           // Determine if Google Maps has already been async loaded into the page
           if (!AppState.get("gmap")) {
@@ -48,6 +44,7 @@ define([
               mapView = new GmapView({ collection: activeItemsCollection });
               el.$map[0].appendChild(mapView.render().el);
               AppState.set("gmap", true);
+              itemSummaryView.el.innerHTML = "Enter a search term above to populate results.";
             });    
           }
         });

@@ -12,8 +12,8 @@ define([
       this.listenTo(this.collection, "set", this.render);
       this.listenTo(this.collection, "remove", this.remove);
       
-      this.$el.on("click", 'i', function() {
-        $(this)
+      this.$el.on("click", 'a', function() {
+        $(this).find('i')
           .toggleClass("icon-chevron-down")  
           .closest("li")
             .find("div.details")

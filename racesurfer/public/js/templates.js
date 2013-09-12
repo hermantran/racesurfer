@@ -9,7 +9,7 @@ define([
       '<i class="icon-chevron-right pull-right"></i>',
       '<%= title %> <br>',  
     '</a>',
-    '<div class="info"> <%= meta.city %>, <%= meta.eventState %> - <%= meta.startDate %> <%= meta.startTime %> </div>',
+    '<div class="info"> <%= meta.city %>, <%= meta.eventState %> - <%= startDate %> <%= startTime %> </div>',
     '<div class="details hide"> <%= meta.allText %> </div>'
   ];
   

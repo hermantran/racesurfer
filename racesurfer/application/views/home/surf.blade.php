@@ -13,7 +13,7 @@
     <section class="search-bar">
       <div class="row-fluid shadow-bottom">
         <div class="span3 title">
-          <h4><a href="#">RaceSurfer</a></h4> 
+          <h4><a href="{{ URL::current() }}">RaceSurfer</a></h4> 
         </div>
       
         <div class="span6 input-append">

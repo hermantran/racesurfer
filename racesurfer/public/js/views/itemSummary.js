@@ -10,7 +10,7 @@ define([
     
     initialize: function() {
       this.listenTo(this.collection, "all", this.render);
-      this.el.innerHTML = "Enter a search term above to populate results.";
+      this.el.innerHTML = "Click \"Allow\" when the Gelocation prompt appears.";
     },
     
     render: function() {
