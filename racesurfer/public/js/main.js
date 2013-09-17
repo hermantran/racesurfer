@@ -14,8 +14,7 @@ require.config({
       deps: ["jquery", "underscore"],
       exports: "Backbone"
     }
-  },
-  urlArgs: "bust=" +  (new Date()).getTime()
+  }
 });
 
 require([
