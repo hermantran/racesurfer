@@ -1,0 +1,10 @@
+{
+  "name": "racesurfer",
+  "version": "0.9.0",
+  "private": "true",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.1"
+  }
+}

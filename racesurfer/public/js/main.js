@@ -1,4 +1,6 @@
 require.config({
+  baseUrl: 'js/',
+  
   paths: {
     jquery: ["http://code.jquery.com/jquery-1.10.1.min", "../bower_components/jquery/jquery.min"],
     underscore: ["http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min", "../bower_components/underscore/underscore-min"],

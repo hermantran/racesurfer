@@ -7,7 +7,7 @@ RaceSurfer is a single-page Web application that locates upcoming running race e
 * Uses Laravel 3's Blade template engine to render the view
 * Uses Backbone.js to organize the JavaScript into a Model-View-Collection pattern
 * Uses RequireJS to separate code as modules and load libraries from CDNs with local fallbacks
-* JS structure in laravel/public/js/
+* JS structure in [racesurfer/public/js/](https://github.com/hermantran/ITP404-Final-Project/tree/master/racesurfer/public/js)
 * CSS follows [SMACSS](http://smacss.com/) rules and is compiled and compressed with Sass
 * W3C Geolocation API to get current coordinates for Active API and Google Maps 
 * Google Maps API to plot race coordinates and current location  
