@@ -1,6 +1,7 @@
 define([
   "backbone",
-  "views/item"
+  "views/item",
+  "infinitescroll"
 ], function(Backbone, ItemView) {
   "use strict";
   var ListView = Backbone.View.extend({
@@ -11,14 +12,18 @@ define([
       this.listenTo(this.collection, "add", this.addOne);
       this.listenTo(this.collection, "set", this.render);
       this.listenTo(this.collection, "remove", this.remove);
-      
-      this.$el.on("click", 'a', function() {
-        $(this).find('i')
-          .toggleClass("icon-chevron-down")  
-          .closest("li")
-            .find("div.details")
-              .slideToggle(1000);
-      });
+    },
+    
+    events: {
+      "click a": "toggleItem"   
+    },
+    
+    toggleItem: function(e) {
+      $(e.currentTarget).find('i')
+        .toggleClass("icon-chevron-down")  
+        .closest("li")
+          .find("div.details")
+            .slideToggle(1000);
     },
     
     render: function() {

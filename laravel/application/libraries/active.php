@@ -9,8 +9,8 @@ class Active {
         $this->urlString = "http://api.amp.active.com/search?v=json&s=relevance&num=30&m=meta:startDate:daterange:today..+meta%3Achannel%3DRunning&api_key=";
 	}
 	
-	public function searchRacesByCoordinates($searchTerm, $lat, $lng) {
-		$url = $this->urlString . $this->_apiKey . "&k=$searchTerm&l=$lat;$lng";
+	public function searchRacesByCoordinates($searchTerm, $lat, $lng, $page = 1) {
+		$url = $this->urlString . $this->_apiKey . "&k=$searchTerm&l=$lat;$lng&page=$page";
 		$json = file_get_contents($url);
 		return $json;
 	}

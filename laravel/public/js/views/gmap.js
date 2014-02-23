@@ -52,6 +52,10 @@ define([
       }
     },
     
+    setCenter: function(lat, lng) {
+      this.map.setCenter(new google.maps.LatLng(lat, lng));
+    },
+    
     render: function() {
       var self = this;
       
