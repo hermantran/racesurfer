@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <title>RaceSurfer</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css">
+    <link rel="stylesheet" href="{{ URL::to_asset("css/bootstrap.min.css") }} ">
     <link rel="stylesheet" href="{{ URL::to_asset("css/styles.min.css") }}">
   </head>
   
@@ -37,7 +37,7 @@
     </section>
     
     <script>var paths = { active: "{{ URL::to_action("api@active") }}", flickr: "{{ URL::to_action("api@flickr") }}" };</script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js" data-main="{{ URL::to_asset("js/main.min") }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js" data-main="{{ URL::to_asset("js/main") }}"></script>
     <script>window.requirejs || document.write('<script src="{{ URL::to_asset("bower_components/requirejs/require.js") }}" data-main="{{ URL::to_asset("js/main.min") }}"><\/script>');</script>
   </body>
 </html>

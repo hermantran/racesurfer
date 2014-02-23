@@ -10,7 +10,7 @@ define([
       '<%= title %> <br>',  
     '</a>',
     '<div class="info"> <%= meta.city %>, <%= meta.eventState %> - <%= startDate %> <%= startTime %> </div>',
-    '<div class="details hide"> <a href="<%= url %>">Register</a> <br> <%= meta.allText %> </div>'
+    '<div class="details hide"> <a href="<%= url %>" target="_blank">Register</a> <br> <%= meta.allText %> </div>'
   ];
   
   Templates.itemSummary = [
@@ -22,7 +22,9 @@ define([
   ];
   
   Templates.infowindow = [
-    '<h5 class="no-padding no-margin"> <%= title %> </h5>', 
+    '<h5 class="no-padding no-margin">',
+      '<a href="<%= url %>" target="_blank"> <%= title %> </a>', 
+    '</h5>', 
     '<%= meta.eventAddress %> <br>', 
     '<%= meta.city %>, <%= meta.eventState %>'
   ];

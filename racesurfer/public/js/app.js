@@ -3,10 +3,9 @@ define([
   "state",
   "templates",
   "collections/items",
-  "collections/photos",
   "views/list",
   "views/itemSummary"
-], function($, AppState, Templates, ItemsCollection, PhotoCollection, ListView, ItemSummaryView) {
+], function($, AppState, Templates, ItemsCollection, ListView, ItemSummaryView) {
   "use strict";
   var App = {
     initialize: function() {
@@ -19,7 +18,6 @@ define([
       };
          
       var activeItemsCollection = new ItemsCollection({ url: paths.active }),
-          photoCollection = new PhotoCollection({ url: paths.flickr }),
           listView = new ListView({ collection: activeItemsCollection }),
           itemSummaryView = new ItemSummaryView({ collection: activeItemsCollection }),
           mapView;
