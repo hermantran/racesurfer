@@ -4,7 +4,7 @@ define([
 ], function(Backbone, App) {
   var Router = Backbone.Router.extend({
     routes: {
-      "results/:latLng/:term": "results" 
+      "results/:lat;:lng/:term/:page": "results" 
     }
   }); 
  

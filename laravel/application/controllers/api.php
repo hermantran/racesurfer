@@ -11,12 +11,13 @@ class API_Controller extends Base_Controller {
       $searchTerm = Input::get('term');
       $lat = Input::get('lat');
       $lng = Input::get('lng');
+	  $page = Input::get('page');
       
       if (empty($active)) { 
         $active = new Active('vxxz4hnnj8fdknbxk6pfm7tn');
       }
       
-      $active_search = $active->searchRacesByCoordinates($searchTerm, $lat, $lng);
+      $active_search = $active->searchRacesByCoordinates($searchTerm, $lat, $lng, $page);
       
       return $active_search;
 	}

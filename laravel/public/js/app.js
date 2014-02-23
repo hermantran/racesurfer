@@ -56,6 +56,7 @@ define([
           el.$map[0].appendChild(mapView.render().el);
           AppState.set("gmap", true);
           itemSummaryView.el.innerHTML = "Enter a search term above to populate results.";
+          Backbone.history.start();  
         });    
       }
     });
@@ -76,22 +77,22 @@ define([
       var data = {
         term: el.$input.val(),
         lat: AppState.get("pos").lat,
-        lng: AppState.get("pos").lng
+        lng: AppState.get("pos").lng,
+        page: 1
       };
       
-      Router.navigate("/results/" + data.lat + ";" + data.lng + "/" + data.term, { trigger: true });  
+      Router.navigate("/results/" + data.lat + ";" + data.lng + "/" + data.term + "/1", { trigger: true });  
     });
     
-    Router.on("route:results", function(latLng, term) {
+    Router.on("route:results", function(lat, lng, term, page) {
       var data = {
-        lat: latLng.split(";")[0],
-        lng: latLng.split(";")[1],
-        term: term
+        lat: lat,
+        lng: lng,
+        term: term,
+        page: page
       };
       App.searchActive(data);
     });
-    
-    Backbone.history.start();  
   }
   
   function displayGeolocationError() {

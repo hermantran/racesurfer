@@ -1,7 +1,6 @@
 define([
   "backbone",
   "views/item",
-  "infinitescroll"
 ], function(Backbone, ItemView) {
   "use strict";
   var ListView = Backbone.View.extend({

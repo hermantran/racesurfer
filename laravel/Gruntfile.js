@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     jshint: {
-      files: ['public/js/**/*.js', '!**/*.min.js']  
+      files: ['public/js/**/*.js', '!**/*.min.js', '!public/js/bower_components/**/*.js']  
     },
     
     requirejs: {
@@ -13,9 +13,12 @@ module.exports = function(grunt) {
             jquery: 'empty:',
             underscore: 'empty:',
             backbone: 'empty:',
-            async: 'lib/async'
+            async: 'lib/async',
+            infinitescroll: 'lib/jquery.infinitescroll.min',
+            requireLib: 'bower_components/requirejs/require'
           },
-          out: 'public/js/main.min.js'
+          include: ['requireLib'],
+          out: 'public/js/dist/main.min.js'
         }
       }
     },
@@ -47,4 +50,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  
+  grunt.registerTask('default', ['sass', 'jshint', 'requirejs']);
 };
