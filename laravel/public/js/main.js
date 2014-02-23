@@ -23,7 +23,7 @@ require.config({
     }
   },
   
-  // urlArgs: "bust=" + new Date().getTime()
+  urlArgs: "bust=" + new Date().getTime()
 });
 
 require([

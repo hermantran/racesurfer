@@ -60,17 +60,11 @@ define([
         });    
       }
     });
-    
-    // Event handler done here so that we reference the instance of GmapView created here
-    listView.$el.on("click", "a", function() {
-      var cid = $(this).closest("li").attr("data-cid");
-      
-      mapView.infowindows[cid].open(mapView.map, mapView.markers[cid]);
-      mapView.map.setCenter(mapView.markers[cid].getPosition());
-    });
   
     el.$input.on("keyup", function(e) {
-      if (e.keyCode === 13) el.$search.click();
+      if (e.keyCode === 13) {
+        el.$search.click();
+      }
     });
     
     el.$search.on("click", function(e) {
@@ -91,6 +85,7 @@ define([
         term: term,
         page: page
       };
+      AppState.set("pos", { lat: lat, lng: lng });
       App.searchActive(data);
     });
   }
@@ -109,7 +104,6 @@ define([
     activeItemsContainer.fetch({
       data: data,
       success: function() {
-        mapView.setCenter(data.lat, data.lng);
         itemSummaryView.$el.html(Templates.itemSummary({ count: activeItemsContainer.get("count") }));  
       }
     });  

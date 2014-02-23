@@ -5,7 +5,7 @@ define([
   var Templates = {};
   
   Templates.item = [
-    '<a href="#">',
+    '<a class="title" href="#">',
       '<i class="icon-chevron-right pull-right"></i>',
       '<%= title %> <br>',  
     '</a>',
@@ -22,9 +22,9 @@ define([
   ];
   
   Templates.infowindow = [
-    '<h5 class="no-padding no-margin">',
-      '<a href="<%= url %>" target="_blank"> <%= title %> </a>', 
-    '</h5>', 
+    '<a href="<%= url %>" target="_blank">',
+      '<h5 class="no-padding no-margin"> <%= title %> </h5>', 
+    '</a>', 
     '<%= meta.eventAddress %> <br>', 
     '<%= meta.city %>, <%= meta.eventState %>'
   ];

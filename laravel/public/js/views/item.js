@@ -1,7 +1,8 @@
 define([
   "backbone",
-  "templates"
-], function(Backbone, Templates) {
+  "templates",
+  "state"
+], function(Backbone, Templates, AppState) {
   "use strict";
   var ItemView = Backbone.View.extend({
     tagName: "li",

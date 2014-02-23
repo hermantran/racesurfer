@@ -4,7 +4,8 @@ define([
   var AppState = Backbone.Model.extend({
     defaults: {
       pos: {},
-      gmap: false
+      gmap: false,
+      activeItem: null
     }
   });
   

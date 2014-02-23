@@ -1,7 +1,8 @@
 define([
   "backbone",
   "views/item",
-], function(Backbone, ItemView) {
+  "state"
+], function(Backbone, ItemView, AppState) {
   "use strict";
   var ListView = Backbone.View.extend({
     tagName: "ul",
@@ -18,7 +19,17 @@ define([
     },
     
     toggleItem: function(e) {
-      $(e.currentTarget).find('i')
+      var $item = $(e.currentTarget).parent(),
+          cid = $item.attr('data-cid');
+      
+      e.preventDefault();
+      
+      if (AppState.get("activeItem") === cid) {
+        cid = null;  
+      }
+      AppState.set("activeItem", cid);
+      
+      $item.find('i')
         .toggleClass("icon-chevron-down")  
         .closest("li")
           .find("div.details")

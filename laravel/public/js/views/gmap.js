@@ -8,17 +8,30 @@ define([
   var GmapView = Backbone.View.extend({
     tagName: "div",
     className: "map",
+    
     markers: {},
     infowindows: {},
     listeners: {},
     options: {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       zoom: 11,
+      maxWidth: 200
     },
     
     initialize: function() {
+      var self = this;
+      
       this.listenTo(this.collection, "add", this.addMarker);
       this.listenTo(this.collection, "remove", this.removeMarker);
+      this.listenTo(AppState, "change:pos", function() {
+        self.setCenter(AppState.get("pos").lat, AppState.get("pos").lng);  
+      });
+      this.listenTo(AppState, "change:activeItem", function() {
+        var cid = AppState.get("activeItem");
+        if (cid !== null) {
+          self.activateMarker(cid);  
+        }
+      });
     },
     
     addMarker: function(model) {
@@ -32,12 +45,13 @@ define([
 
       this.infowindows[model.cid] = new google.maps.InfoWindow({
         content: Templates.infowindow(model.toJSON()),
-        maxWidth: 200
+        maxWidth: this.options.maxWidth
       });
       
       this.listeners[model.cid] = google.maps.event.addListener(this.markers[model.cid], "click", function() {
         self.infowindows[model.cid].open(self.map, self.markers[model.cid]);
       });
+
     },
     
     removeMarker: function(model) {
@@ -50,6 +64,11 @@ define([
         delete this.infowindows[model.cid];
         delete this.listeners[model.cid];
       }
+    },
+    
+    activateMarker: function(cid) {
+      this.infowindows[cid].open(this.map, this.markers[cid]);
+      this.map.panTo(this.markers[cid].getPosition());  
     },
     
     setCenter: function(lat, lng) {
@@ -71,7 +90,7 @@ define([
       
       var currentInfo = new google.maps.InfoWindow({
         content: "Current Location",
-        maxWidth: 200
+        maxWidth: this.options.maxWidth
       });
       
       google.maps.event.addListener(currentMarker, "click", function() {
