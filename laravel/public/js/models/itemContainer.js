@@ -16,11 +16,20 @@ define([
     },
     
     parse: function(response) {
-      this.get("results").set(response._results);
+      var currentPage = Math.ceil(response.endIndex / response.pageSize),
+          endPage = Math.ceil(response.numberOfResults / response.pageSize),
+          count = response.numberOfResults;
+      
+      if (currentPage > 1) {
+        this.get("results").add(response._results);
+      } else {
+        this.get("results").set(response._results);
+      }
+      
       return {
-        currentPage: 1,
-        endPage: Math.ceil(response.numberOfResults / response.pageSize),
-        count: response.numberOfResults
+        currentPage: currentPage,
+        endPage: endPage,
+        count: count
       };
     }
   });

@@ -1,21 +1,30 @@
 define([
   "backbone",
   "views/item",
-  "state"
-], function(Backbone, ItemView, AppState) {
+  "state",
+  "templates",
+  "router"
+], function(Backbone, ItemView, AppState, Templates, Router) {
   "use strict";
   var ListView = Backbone.View.extend({
-    tagName: "ul",
-    className: "nav nav-stacked nav-pills nav-styled",
+    tagName: "div",
+    template: Templates.itemList,
     
     initialize: function() {
+      this.listenTo(this.model, "change:currentPage change:endPage", this.checkPagination);
       this.listenTo(this.collection, "add", this.addOne);
       this.listenTo(this.collection, "set", this.render);
       this.listenTo(this.collection, "remove", this.remove);
+      
+      this.$el.html(this.template());
+      this.$ul = this.$el.find("ul");  
+      this.$pagination = this.$el.find(".paginate");
+      this.$loader = this.$el.find(".loader");
     },
     
     events: {
-      "click a": "toggleItem"   
+      "click a.title": "toggleItem",
+      "click a.next": "retrieveNext" 
     },
     
     toggleItem: function(e) {
@@ -35,10 +44,29 @@ define([
           .find("div.details")
             .slideToggle(1000);
     },
+      
+    retrieveNext: function(e) {
+      e.preventDefault();
+      var pos = AppState.get("pos"),
+          lat = pos.lat,
+          lng = pos.lng,
+          term = AppState.get("term"),
+          page = this.model.get("currentPage") + 1;
+      
+      this.$loader.show();
+      Router.navigate("/results/" + lat + ";" + lng + "/" + term + "/" + page, { trigger: true }); 
+    },
+    
+    checkPagination: function() {
+      if (this.model.get("currentPage") >= this.model.get("endPage")) {
+        this.$pagination.hide();  
+      } else {
+        this.$pagination.show();  
+        this.$loader.hide();
+      }
+    },
     
     render: function() {
-      this.$el.empty();
-      
       this.collection.each(function(model) {
         this.addOne(model);
       });
@@ -46,7 +74,7 @@ define([
     
     addOne: function(model) {
       var itemView = new ItemView({ model: model });
-      this.el.appendChild(itemView.el);
+      this.$ul.append(itemView.el);
     },
     
     remove: function(model) {

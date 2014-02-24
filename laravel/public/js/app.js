@@ -2,11 +2,10 @@ define([
   "jquery",
   "state",
   "router",
-  "templates",
   "models/itemContainer",
   "views/list",
   "views/itemSummary"
-], function($, AppState, Router, Templates, ItemContainer, ListView, ItemSummaryView) {
+], function($, AppState, Router, ItemContainer, ListView, ItemSummaryView) {
   "use strict";
   // Caching DOM elements
   var el = {
@@ -25,8 +24,8 @@ define([
   function initialize() {
     activeItemsContainer = new ItemContainer({ url: paths.active });
     activeItemsCollection = activeItemsContainer.get("results");
-    listView = new ListView({ collection: activeItemsCollection });
-    itemSummaryView = new ItemSummaryView({ collection: activeItemsCollection });
+    listView = new ListView({ model: activeItemsContainer, collection: activeItemsCollection });
+    itemSummaryView = new ItemSummaryView({ model: activeItemsContainer });
     
     el.$sidebar
       .append(itemSummaryView.el)
@@ -47,15 +46,14 @@ define([
         lng: position.coords.longitude
       }); 
       
-      itemSummaryView.el.innerHTML = "Google Maps initialzing...";
+      AppState.set("hasGeolocation", true);
       
       // Determine if Google Maps has already been async loaded into the page
-      if (!AppState.get("gmap")) {
+      if (!AppState.get("hasGmap")) {
         require(["views/gmap"], function(GmapView) {
           mapView = new GmapView({ collection: activeItemsCollection });
           el.$map[0].appendChild(mapView.render().el);
-          AppState.set("gmap", true);
-          itemSummaryView.el.innerHTML = "Enter a search term above to populate results.";
+          AppState.set("hasGmap", true);
           Backbone.history.start();  
         });    
       }
@@ -74,7 +72,7 @@ define([
         lng: AppState.get("pos").lng,
         page: 1
       };
-      
+
       Router.navigate("/results/" + data.lat + ";" + data.lng + "/" + data.term + "/1", { trigger: true });  
     });
     
@@ -85,7 +83,9 @@ define([
         term: term,
         page: page
       };
+      AppState.set("term", data.term);
       AppState.set("pos", { lat: lat, lng: lng });
+      AppState.set("isSearching", false);  
       App.searchActive(data);
     });
   }
@@ -99,14 +99,8 @@ define([
   }
   
   function searchActive(data) {
-    itemSummaryView.$el.html(Templates.loader());
-        
-    activeItemsContainer.fetch({
-      data: data,
-      success: function() {
-        itemSummaryView.$el.html(Templates.itemSummary({ count: activeItemsContainer.get("count") }));  
-      }
-    });  
+    AppState.set("isSearching", true);
+    activeItemsContainer.fetch({ data: data });  
   }
   
   var App = {

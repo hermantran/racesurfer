@@ -21,6 +21,14 @@ define([
     '<img class="loader" src="img/ajax-loader.gif"> Loading...'
   ];
   
+  Templates.itemList = [
+    '<ul class="nav nav-stacked nav-pills nav-styled"></ul>',
+    '<div class="text-center paginate summary">',
+      '<a href="#" class="next">Next</a>',
+      '<img class="loader hide" src="img/ajax-loader.gif">',
+    '</div>'
+  ];
+  
   Templates.infowindow = [
     '<a href="<%= url %>" target="_blank">',
       '<h5 class="no-padding no-margin"> <%= title %> </h5>', 
