@@ -24,7 +24,7 @@ define([
     
     events: {
       "click a.title": "toggleItem",
-      "click a.next": "retrieveNext" 
+      "click a.next": "triggerNext",
     },
     
     toggleItem: function(e) {
@@ -44,9 +44,13 @@ define([
           .find("div.details")
             .slideToggle(1000);
     },
-      
-    retrieveNext: function(e) {
+    
+    triggerNext: function(e) {
       e.preventDefault();
+      this.retrieveNext();
+    },
+      
+    retrieveNext: function() {
       var pos = AppState.get("pos"),
           lat = pos.lat,
           lng = pos.lng,
@@ -59,10 +63,12 @@ define([
     
     checkPagination: function() {
       if (this.model.get("currentPage") >= this.model.get("endPage")) {
-        this.$pagination.hide();  
+        this.$pagination.hide();
+        return false;
       } else {
         this.$pagination.show();  
         this.$loader.hide();
+        return true;
       }
     },
     

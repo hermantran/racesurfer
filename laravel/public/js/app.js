@@ -10,8 +10,8 @@ define([
   // Caching DOM elements
   var el = {
     $sidebar: $(".sidebar"),
-    $input: $(".input-append > input[type='text']"),
-    $search: $(".input-append > span.search"),
+    $form: $('.input-form'),
+    $input: $(".input-form > input[type='text']"),
     $map: $(".map-container")
   };
   
@@ -20,23 +20,6 @@ define([
       listView,
       itemSummaryView,
       mapView;
-  
-  function initialize() {
-    activeItemsContainer = new ItemContainer({ url: paths.active });
-    activeItemsCollection = activeItemsContainer.get("results");
-    listView = new ListView({ model: activeItemsContainer, collection: activeItemsCollection });
-    itemSummaryView = new ItemSummaryView({ model: activeItemsContainer });
-    
-    el.$sidebar
-      .append(itemSummaryView.el)
-      .append(listView.el);
-
-    if ("geolocation" in navigator) {
-      initializeGmap();
-    } else {
-      displayGeolocationError();
-    }
-  }
   
   function initializeGmap() {
     // Set the geolocation based coordinates
@@ -58,21 +41,27 @@ define([
         });    
       }
     });
+  }
   
-    el.$input.on("keyup", function(e) {
-      if (e.keyCode === 13) {
-        el.$search.click();
+  function initializeBindings() {
+    el.$sidebar.on("scroll", function(e) {
+      var posY = el.$sidebar.innerHeight() + el.$sidebar.scrollTop(),
+          totalY = el.$sidebar[0].scrollHeight;
+      
+      if (posY >= totalY && listView.checkPagination()) {
+        listView.retrieveNext();
       }
     });
     
-    el.$search.on("click", function(e) {
+    el.$form.on("submit", function(e) {
       var data = {
         term: el.$input.val(),
         lat: AppState.get("pos").lat,
         lng: AppState.get("pos").lng,
         page: 1
       };
-
+      
+      e.preventDefault();
       Router.navigate("/results/" + data.lat + ";" + data.lng + "/" + data.term + "/1", { trigger: true });  
     });
     
@@ -87,7 +76,7 @@ define([
       AppState.set("pos", { lat: lat, lng: lng });
       AppState.set("isSearching", false);  
       App.searchActive(data);
-    });
+    }); 
   }
   
   function displayGeolocationError() {
@@ -98,14 +87,28 @@ define([
       .next().hide();    
   }
   
-  function searchActive(data) {
-    AppState.set("isSearching", true);
-    activeItemsContainer.fetch({ data: data });  
-  }
-  
   var App = {
-    initialize: initialize,
-    searchActive: searchActive
+    initialize: function initialize() {
+      activeItemsContainer = new ItemContainer({ url: paths.active });
+      activeItemsCollection = activeItemsContainer.get("results");
+      listView = new ListView({ model: activeItemsContainer, collection: activeItemsCollection });
+      itemSummaryView = new ItemSummaryView({ model: activeItemsContainer });
+      
+      el.$sidebar
+        .append(itemSummaryView.el)
+        .append(listView.el);
+  
+      if ("geolocation" in navigator) {
+        initializeGmap();
+        initializeBindings();
+      } else {
+        displayGeolocationError();
+      }
+    },
+    searchActive: function searchActive(data) {
+      AppState.set("isSearching", true);
+      activeItemsContainer.fetch({ data: data });  
+    }
   };
   
   return App;

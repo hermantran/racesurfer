@@ -17,8 +17,10 @@
         </div>
       
         <div class="span6 input-append">
-          <input type="text" class="input-large not-rounded" placeholder="(e.g. 5K, 10K, Marathon)">
-          <span class="add-on search" title="Search"><i class="icon-search"></i></span> 
+          <form class="input-form">
+            <input type="text" class="input-large not-rounded" placeholder="(e.g. 5K, 10K, Marathon)">
+            <span class="add-on search" title="Search"><i class="icon-search"></i></span> 
+          </form>
         </div>
       
         <div class="span3 credits text-right">

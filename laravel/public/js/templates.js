@@ -23,7 +23,7 @@ define([
   
   Templates.itemList = [
     '<ul class="nav nav-stacked nav-pills nav-styled"></ul>',
-    '<div class="text-center paginate summary">',
+    '<div class="text-center paginate summary hide">',
       '<a href="#" class="next">Next</a>',
       '<img class="loader hide" src="img/ajax-loader.gif">',
     '</div>'
